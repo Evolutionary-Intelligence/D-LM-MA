@@ -4,7 +4,7 @@ The goal of this open-source repository is to provide all the source code and da
 
 ## How-to-Run On Modern Cluster Computing
 
-### Configurations of Python Programming Environment
+### Configurations of the Python Programming Environment
 
 It is suggested to use [conda](https://docs.conda.io/projects/conda/en/latest/index.html) to create the virtual environment for [Python](https://www.python.org/).
 
@@ -31,3 +31,25 @@ $ export NUMEXPR_NUM_THREADS=1
 ```
 
 Note that the above settings should be applied in all computing nodes.
+
+### Construction of a Private Cluster Computing Platform
+
+When ```CentOS``` is used, the firewall should be closed in advance for all nodes, as presented below.
+
+```bash
+$ sudo firewall-cmd --state
+$ sudo systemctl stop firewalld
+$ sudo systemctl disable firewalld
+$ sudo systemctl mask --now firewalld
+$ sudo firewall-cmd --state
+```
+
+We need to run one private Ray Cluster where the distributed algorithm is executed. There are several ways to construct it. For more guidelines about the Ray Cluster, see [https://docs.ray.io/en/latest/cluster/quickstart.html](https://docs.ray.io/en/latest/cluster/quickstart.html). Here is the simplest way to construct it:
+
+```bash
+$ ray start --head  # run on the (single) master node, depending on your choice
+# run on all slave nodes
+$ ray start --address='[MASTER-ID:PORT]' --redis-password='[PASSWORD]'
+# [MASTER-ID:PORT] and [PASSWORD] need to be replaced by your own settings
+$ ray status  # run on the master node to check the status information of the Ray Cluster
+```
