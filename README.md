@@ -16,4 +16,18 @@ $ conda activate env_ppsn/
 $ conda install --prefix env_ppsn python=3.8.12 -y  # for Python
 $ pip install numpy==1.21.5  # for numerical computing
 $ pip install ray==1.9.1  # for distributed computing
+$ pip install "ray[default]"
 ```
+
+### Settings of Environment Variables
+
+According to the [official suggestions](https://docs.ray.io/en/latest/ray-core/troubleshooting.html#no-speedup) from ray, we set the following environment variables, in order to avoid contention with multi-threaded libraries (NumPy here).
+
+```bash
+$ export OPENBLAS_NUM_THREADS=1
+$ export MKL_NUM_THREADS=1
+$ export OMP_NUM_THREADS=1
+$ export NUMEXPR_NUM_THREADS=1
+```
+
+Note that the above settings should be applied in all computing nodes.
