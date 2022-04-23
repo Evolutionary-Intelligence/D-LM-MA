@@ -53,3 +53,16 @@ $ ray start --address='[MASTER-ID:PORT]' --redis-password='[PASSWORD]'
 # [MASTER-ID:PORT] and [PASSWORD] need to be replaced by your own settings
 $ ray status  # run on the master node to check the status information of the Ray Cluster
 ```
+
+### How to Run Trials
+
+Since typically the optimization process in high-dimensional cases needs a **very long** runtime, it is better to run these algorithms *in the background* (e.g., via ```nohup```).
+
+```bash
+# run D-LM-MA (with 250 islands) independently for 7 times
+$ nohup python run_trials.py -s=1 -e=7 -o=LMMAES -d=True -i=250 >DistributedLMMAES_1_7.out 2>&1 &
+# run the baseline algorithm: serial MAES
+$ nohup python run_trials.py -s=1 -e=7 -o=MAES >MAES_1_7.out 2>&1 &
+# run the baseline algorithm: serial LMMAES
+$ nohup python run_trials.py -s=1 -e=7 -o=LMMAES >LMMAES_1_7.out 2>&1 &
+```
