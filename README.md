@@ -66,3 +66,5 @@ $ nohup python run_trials.py -s=1 -e=7 -o=MAES >MAES_1_7.out 2>&1 &
 # run the baseline algorithm: serial LMMAES
 $ nohup python run_trials.py -s=1 -e=7 -o=LMMAES >LMMAES_1_7.out 2>&1 &
 ```
+
+Note that the **core code** for D-LM-MA is available at [https://github.com/Evolutionary-Intelligence/D-LM-MA/blob/main/pypoplib/distributed_es.py](https://github.com/Evolutionary-Intelligence/D-LM-MA/blob/main/pypoplib/distributed_es.py), while ```distributed_lmmaes.py``` is just its wrapper based on LM-MA-ES. In fact, other LSO versions of CMA-ES can also be used here *with little modifications*.
